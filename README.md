@@ -245,7 +245,7 @@ This skill uses **progressive disclosure** — the main `SKILL.md` is a concise 
 | `templates/websearch.md.template` | Search record template | Project initialization |
 | <!-- templates/websearch.md.template --> | <!-- 搜索记录模板 --> | <!-- 项目初始化 --> |
 | `Memory: frontend-slides-runtime-log` | Self-evolving memory system | Phase 0.5 (always read first) & Phase 6 (always update after) |
-| <!-- 记忆：frontend-slides-runtime-log --> | <!-- 自我进化记忆系统 --> | <!-- 第0.5阶段（始终先读取）和第6阶段（始终后更新） --> |
+| <!-- 记忆：ppt-clouder-runtime-log --> | <!-- 自我进化记忆系统 --> | <!-- 第0.5阶段（始终先读取）和第6阶段（始终后更新） --> |
 
 This design follows [OpenAI's harness engineering](https://openai.com/index/harness-engineering/) principle: "give the agent a map, not a 1,000-page instruction manual."
 <!-- 此设计遵循OpenAI的驾驭工程原则："给代理一张地图，而不是1000页的说明书。" -->
