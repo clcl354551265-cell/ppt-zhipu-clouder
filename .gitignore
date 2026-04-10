@@ -1,0 +1,38 @@
+# Python virtual environment
+.venv/
+venv/
+env/
+ENV/
+
+# Claude temporary design files
+.claude-design/
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Environment variables
+.env
+.env.local
+
+# Project specific - ignore generated presentations (keep templates)
+# Uncomment if you want to ignore generated presentations
+# */final/
+# */public/
+# */websearch.md

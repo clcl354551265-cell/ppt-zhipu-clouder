@@ -10,7 +10,10 @@ A Claude Code skill for creating stunning, animation-rich HTML presentations —
 
 - **Zero Dependencies** — Single HTML files with inline CSS/JS. No npm, no build tools, no frameworks.
 - **Visual Style Discovery** — Can't articulate design preferences? No problem. Pick from generated visual previews.
+- **Slide-by-Slide Verification** — Review and approve each slide individually before final assembly. No surprises.
+- **Self-Evolving Memory** — Learns your preferences over time and optimizes recommendations for future presentations.
 - **Web Search Integration** — Automatic content research using 智谱AI search for rich, sourced material.
+- **Background Image Support** — Add visual impact with full-bleed background images and automatic overlay handling.
 - **Project Organization** — Automatic directory structure with `public/` for images, `final/` for output, and `websearch.md` for research tracking.
 - **PPT Conversion** — Convert existing PowerPoint files to web, preserving all images and content.
 - **Anti-AI-Slop** — Curated distinctive styles that avoid generic AI aesthetics (bye-bye, purple gradients on white).
@@ -50,7 +53,7 @@ cp scripts/extract-pptx.py scripts/web_search.py ~/.claude/skills/ppt-clouder/sc
 Or clone directly:
 
 ```bash
-git clone https://github.com/zarazhangrui/frontend-slides.git ~/.claude/skills/ppt-clouder
+git clone git@github.com:lvye1989/ppt-clouder.git ~/.claude/skills/ppt-clouder
 ```
 
 Then use it by typing `/ppt-clouder` in Claude Code.
@@ -69,9 +72,13 @@ The skill will:
 1. Ask about your content (slides, messages, images)
 2. Ask about the feeling you want (impressed? excited? calm?)
 3. Generate 3 visual style previews for you to compare
-4. Create the full presentation in your chosen style
-5. Organize files in `public/`, `final/`, and `websearch.md`
-6. Open it in your browser
+4. **For each slide**: Ask about layout, images, charts, and content preferences
+5. Show you a preview of each slide before proceeding
+6. Create the full presentation in your chosen style
+7. Organize files in `public/`, `final/`, and `websearch.md`
+8. Open it in your browser
+
+**Note**: The skill verifies each slide with you before moving to the next. This ensures every slide meets your expectations.
 
 ### Using Your Own Images
 
@@ -79,6 +86,19 @@ When a slide needs images:
 1. Place your image in the `public/` folder
 2. Tell the skill the filename (e.g., "slide-02-bg.jpg")
 3. The skill will reference it in the presentation
+
+### Using Background Images
+
+For dramatic title slides or section transitions, you can use full-bleed background images:
+
+1. Place your image in the `public/` folder
+2. The skill automatically adds a semi-transparent overlay for text readability
+3. Background images work with all animations and styles
+
+Example use cases:
+- Title slides for strong first impressions
+- Contextual slides (e.g., Wall Street theme for finance content)
+- Transition slides between major sections
 
 ### Convert a PowerPoint
 
@@ -129,10 +149,47 @@ This skill uses **progressive disclosure** — the main `SKILL.md` is a concise 
 | `scripts/extract-pptx.py` | PPT content extraction | Phase 4 (conversion) |
 | `scripts/web_search.py` | 智谱AI web search | Phase 1.5 & Phase 3.0a |
 | `templates/websearch.md.template` | Search record template | Project initialization |
+| `Memory: frontend-slides-runtime-log` | Self-evolving memory system | Phase 0.5 (always read first) & Phase 6 (always update after) |
 
 This design follows [OpenAI's harness engineering](https://openai.com/index/harness-engineering/) principle: "give the agent a map, not a 1,000-page instruction manual."
 
+### Self-Evolving Memory System
+
+The skill maintains a runtime log that learns from each presentation:
+
+- **User Profiles** — Tracks your style preferences and frequently used layouts
+- **Smart Recommendations** — Suggests styles based on topic and past choices
+- **Success Metrics** — Learns which layouts work best for different content types
+- **Failure Patterns** — Avoids previously problematic design choices
+
+After each presentation, the system automatically updates to improve future recommendations.
+
 ## Environment Setup
+
+### Core Requirements
+
+- [Claude Code](https://claude.ai/claude-code) CLI
+- Python 3.10+ (managed by `uv`)
+- `uv` tool for Python environment management
+
+### Initial Setup (One-time)
+
+```bash
+# Install uv if not already installed
+curl -LsSf https://astral.sh/uv/install.sh | sh
+
+# Navigate to skill directory
+cd ~/.claude/skills/ppt-clouder
+
+# Install Python 3.10
+uv python install 3.10
+
+# Create virtual environment
+uv venv --python 3.10 .venv
+
+# Install dependencies
+uv pip install -p .venv python-pptx zhipuai python-dotenv
+```
 
 ### Web Search Feature (Optional)
 
@@ -147,6 +204,11 @@ For automatic content research:
    ```bash
    echo 'ZHIPU_API_KEY=your-api-key-here' > ~/.claude/skills/ppt-clouder/.env
    ```
+
+**Search Configuration Options:**
+- **Search Engine**: `search_pro` (recommended), `search_pro_sogou`, `search_std`
+- **Content Size**: `high` (detailed), `medium` (brief)
+- **Recency Filter**: `oneDay`, `oneWeek`, `oneMonth`, `oneYear`, `noLimit`
 
 ## Philosophy
 
@@ -165,12 +227,12 @@ This skill was born from the belief that:
 ## Requirements
 
 - [Claude Code](https://claude.ai/claude-code) CLI
-- For PPT conversion: Python with `python-pptx` library
-- For web search: 智谱AI API key (optional)
+- See [Environment Setup](#environment-setup) for Python/uv requirements
 
 ## Credits
 
-Created by [@zarazhangrui](https://github.com/zarazhangrui) with Claude Code.
+基于[@zarazhangrui](https://github.com/zarazhangrui)进行优化升级
+迭代技术由 [ppt-clouder](https://github.com/lvye1989/ppt-clouder) 提供。
 
 Inspired by the "Vibe Coding" philosophy — building beautiful things without being a traditional software engineer.
 
