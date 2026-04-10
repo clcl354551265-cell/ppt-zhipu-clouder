@@ -1,0 +1,6 @@
+{
+  "python.defaultInterpreterPath": "/Users/mac/.claude/skills/frontend-slides-2.0.0/.venv/bin/python3.10",
+  "python.analysis.extraPaths": [
+    "/Users/mac/.claude/skills/frontend-slides-2.0.0/.venv/lib/python3.10/site-packages"
+  ]
+}
